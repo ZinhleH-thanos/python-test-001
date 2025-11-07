@@ -44,7 +44,20 @@ def draw_number_triangle(height:int)->str:
     Returns:
         string : A string representation of the number triangle.
     """
-    pass
+    current_number = 1
+    rows = []
+
+    for row in range(1, height + 1):
+        current_row = []
+
+        for _ in range(row):
+            current_row.append(str(current_number))
+            current_number += 1
+
+            rows.append(" ".join(current_row))
+
+    return "\n".join(rows)
+
 
 def factorial(n:int):
     """
