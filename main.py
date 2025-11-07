@@ -103,16 +103,23 @@ def bar_graph()->str:
 
     with open("grades.txt", "r") as file:
         for line in file:
-            marks = line.split()                   
-            marks = [int(mark) for mark in marks] 
-            data.append(marks)                     
+            marks = line.split()
 
-    graph_rows = [] 
+            clean_marks = []
+            for mark in marks:
+                mark = mark.strip()
+                mark = mark.replace(",", "")
+                mark = int(mark)
+                clean_marks.append(mark)
+
+            data.append(clean_marks)
+
+    graph_rows = []
 
     for i in range(len(data)):
-        class_marks = data[i]                           
-        average = sum(class_marks) / len(class_marks)   
-        number_of_stars = round(average / 10)           
+        class_marks = data[i]
+        average = sum(class_marks) / len(class_marks)
+        number_of_stars = round(average / 10)
         row_string = "Class " + str(i + 1) + ": " + "*" * number_of_stars
         graph_rows.append(row_string)
 
