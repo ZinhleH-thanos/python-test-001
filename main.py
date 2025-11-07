@@ -11,22 +11,21 @@ def draw_square(size:int, filled=False, char="*")-> str:
         str: A string representation of the square.
     """
     if size == 1:
-        return char
+        return char + "\n"
 
     rows = []
 
     if filled:
         for _ in range(size):
             rows.append(char * size)
-
     else:
         rows.append(char * size)
-
         for _ in range(size - 2):
             rows.append(char + " " * (size - 2) + char)
         rows.append(char * size)
 
     return "\n".join(rows) + "\n"
+
 
 def draw_number_triangle(height:int)->str:
     """
@@ -37,12 +36,12 @@ def draw_number_triangle(height:int)->str:
         2 3 
         4 5 6 
         7 8 9 10
-        
+
     Args:
         height (int): height of the triangle.
 
     Returns:
-        string : A string representation of the number triangle.
+        str: A string representation of the number triangle.
     """
     current_number = 1
     rows = []
@@ -54,7 +53,8 @@ def draw_number_triangle(height:int)->str:
             current_row.append(str(current_number))
             current_number += 1
 
-            rows.append(" ".join(current_row))
+        if row <= height:
+            rows.append(" ".join(current_row) + " ")
 
     return "\n".join(rows) + "\n"
 
@@ -70,25 +70,25 @@ def factorial(n:int):
     """
     if n == 0 or n == 1:
         return 1
-    
-    result = 1
 
+    result = 1
     for i in range(2, n + 1):
         result = result * i
 
     return result
-    
+
+
 def bar_graph()->str:
     """
     This function draws a graph of averages per class:
-    
+
     read data from grades.txt, there is data for 8 class and marks for 15 students per class
     each row represents a class and each column represents a student marks
-    
+
     Task is to draw a bar graph of averages per class:
     each '*' represents 10 % 
     i.e
-    
+
     Class averages:
     1: *****
     2: ********
@@ -104,63 +104,47 @@ def bar_graph()->str:
     with open("grades.txt", "r") as file:
         for line in file:
             marks = line.split()
-
             clean_marks = []
             for mark in marks:
                 mark = mark.strip()
                 mark = mark.replace(",", "")
                 mark = int(mark)
                 clean_marks.append(mark)
-
             data.append(clean_marks)
 
-    graph_rows = ["Class Averages: "]
+    graph_rows = ["Class averages:"]
 
     for i in range(len(data)):
         class_marks = data[i]
         average = sum(class_marks) / len(class_marks)
         number_of_stars = round(average / 10)
-        row_string = "Class " + str(i + 1) + ": " + "*" * number_of_stars
+        row_string = str(i + 1) + ": " + "*" * number_of_stars
         graph_rows.append(row_string)
 
-    return "\n".join(graph_rows)
+    return "\n".join(graph_rows) + "\n"
 
 
 def pascals_triangle(rows:int)->list[int]:
-    """ p(n, k) = n! / (k! * (n-k)!)
-    
-    
-    n: number of rows starting from 0
-    k: column number starting from 0
-    i.e 
-    rows 
-    0:              1
-    1:            1   1
-    2:          1   2   1
-    3:        1   3   3   1
-    4:      1   4   6   4   1
-    5:    1  5  10  10   5   1
-    6:  1  6  15  20  15   6   1
-    7:1  7 21  35  35  21   7   1
-    
-    example:
-        pascals_triangle(5)
-        returns [1, 5, 10, 10, 5, 1]
-        using 'p(n, k) = n! / (k! * (n-k)!)'
     """
-    pass
+    Returns the nth row of Pascal's triangle using the formula:
+        p(n, k) = n! / (k! * (n-k)!)
+
+    rows: row number (starting from 0)
+    return: list[int] representing the row
+    """
+    result = []
+
+    for k in range(rows + 1):
+        result.append(factorial(rows) // (factorial(k) * factorial(rows - k)))
+
+    return result
 
 
-    
-    
 def main():
     chars = ['#', '*', '+', '@', '%']
-    for i in range(3,8):
-        print(draw_square(i,False,char=chars[i-3]))
+    for i in range(3, 8):
+        print(draw_square(i, False, char=chars[i-3]))
 
-
-    
-            
     print()
     print(draw_number_triangle(6))
     print(factorial(5))
@@ -168,7 +152,8 @@ def main():
     print(pascals_triangle(5))
     print(bar_graph())
     print()
- 
-    
+
+
 if __name__ == "__main__":
     main()
+
