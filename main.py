@@ -10,9 +10,24 @@ def draw_square(size:int, filled=False, char="*")-> str:
     Returns:
         str: A string representation of the square.
     """
-    pass
+    if size == 1:
+        return char
 
-    
+    rows = []
+
+    if filled:
+        for _ in range(size):
+            rows.append(char * size)
+
+    else:
+        rows.append(char * size)
+
+        for _ in range(size - 2):
+            rows.append(char + " " * (size - 2) + char)
+        rows.append(char * size)
+
+    return "\n".join(rows)
+
 def draw_number_triangle(height:int)->str:
     """
     This function draws a triangle of numbers with the given height.
