@@ -99,7 +99,24 @@ def bar_graph()->str:
     returns:
         str: string of the graph
     """
-    pass
+    data = []
+
+    with open("grades.txt", "r") as file:
+        for line in file:
+            marks = line.split()                   
+            marks = [int(mark) for mark in marks] 
+            data.append(marks)                     
+
+    graph_rows = [] 
+
+    for i in range(len(data)):
+        class_marks = data[i]                           
+        average = sum(class_marks) / len(class_marks)   
+        number_of_stars = round(average / 10)           
+        row_string = "Class " + str(i + 1) + ": " + "*" * number_of_stars
+        graph_rows.append(row_string)
+
+    return "\n".join(graph_rows)
 
 
 def pascals_triangle(rows:int)->list[int]:
@@ -133,7 +150,10 @@ def main():
     chars = ['#', '*', '+', '@', '%']
     for i in range(3,8):
         print(draw_square(i,False,char=chars[i-3]))
-        
+
+
+    
+            
     print()
     print(draw_number_triangle(6))
     print(factorial(5))
@@ -145,6 +165,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-    
-    
