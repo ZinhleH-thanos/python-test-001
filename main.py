@@ -26,7 +26,7 @@ def draw_square(size:int, filled=False, char="*")-> str:
             rows.append(char + " " * (size - 2) + char)
         rows.append(char * size)
 
-    return "\n".join(rows)
+    return "\n".join(rows) + "\n"
 
 def draw_number_triangle(height:int)->str:
     """
@@ -56,7 +56,7 @@ def draw_number_triangle(height:int)->str:
 
             rows.append(" ".join(current_row))
 
-    return "\n".join(rows)
+    return "\n".join(rows) + "\n"
 
 
 def factorial(n:int):
@@ -114,7 +114,7 @@ def bar_graph()->str:
 
             data.append(clean_marks)
 
-    graph_rows = []
+    graph_rows = ["Class Averages: "]
 
     for i in range(len(data)):
         class_marks = data[i]
